@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario CRUD</title>
+</head>
+<body>
+    <h1>Formulario de Creación</h1>
+    <form id="crudForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" required>
+
+        <button type="button" onclick="enviarDatos()">Enviar Datos</button>
+    </form>
+
+    <script>
+        function enviarDatos() {
+            const nombre = document.getElementById('nombre').value;
+            const edad = document.getElementById('edad').value;
+    
+            // Construir el objeto de datos
+            const datos = {
+                nombre: nombre,
+                edad: edad
+            };
+    
+            // Enviar los datos a la Azure Function o API
+            fetch('URLdeAzure_Function', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Datos enviados con éxito:', data);
+            })
+            .catch(error => {
+                console.error('Error al enviar datos:', error);
+            });
+        }
+    </script>
+    
+</body>
+</html>
